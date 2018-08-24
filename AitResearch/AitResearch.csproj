@@ -78,6 +78,7 @@
     <Content Include="WebForm1.aspx" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DbTableModels\ANSWER.cs" />
     <Compile Include="DbTableModels\DatabaseContext.cs" />
     <Compile Include="DbTableModels\QUESTION.cs" />
     <Compile Include="DbTableModels\QUESTION_OPTION.cs" />

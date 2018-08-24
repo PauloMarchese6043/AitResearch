@@ -20,6 +20,8 @@ namespace AitResearch.DbTableModels
             Database.SetInitializer(new MigrateDatabaseToLatestVersion<DatabaseContext, Migrations.Configuration>());
         }
 
+        public DbSet<ANSWER> ANSWERS { get; set; }
+
         public DbSet<QUESTION> QUESTIONS { get; set; }
 
         public DbSet<QUESTION_OPTION> QUESTION_OPTIONS { get; set; }
@@ -31,8 +33,8 @@ namespace AitResearch.DbTableModels
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            //modelBuilder.Entity<QUESTION_OPTION>().HasRequired(x => x.QUESTION).WithMany().WillCascadeOnDelete(false);
 
+            modelBuilder.Entity<ANSWER>().ToTable("ANSWERS");
             modelBuilder.Entity<QUESTION>().ToTable("QUESTIONS");
             modelBuilder.Entity<QUESTION_OPTION>().ToTable("QUESTIONS_OPTIONS");
             modelBuilder.Entity<SESSION>().ToTable("SESSIONS");
