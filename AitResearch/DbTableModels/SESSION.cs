@@ -11,10 +11,9 @@ namespace AitResearch.DbTableModels
         public DateTime DATE { get; set; }
         [Required]
         public string IP_ADDRESS { get; set; }
-        [Required]
         public string GIVEN_NAME { get; set; }
         public string LAST_NAME { get; set; }
-        public DateTime BIRTHDAY { get; set; }
+        public DateTime? BIRTHDAY { get; set; }
         public string PHONE { get; set; }
     }
 }
