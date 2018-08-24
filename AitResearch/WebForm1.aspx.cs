@@ -11,7 +11,7 @@ namespace AitResearch
     public partial class WebForm1 : Page
     {
         private static int currentQuestionId = 0;
-        DatabaseContext dbContext = new DatabaseContext();
+        private static DatabaseContext dbContext = new DatabaseContext();
 
         protected void Page_Load(object sender, EventArgs e)
         {

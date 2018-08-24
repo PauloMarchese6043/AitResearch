@@ -72,6 +72,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="StaffSearch.aspx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -88,6 +89,13 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Proxies\QuestionOptionProxy.cs" />
     <Compile Include="Proxies\QuestionProxy.cs" />
+    <Compile Include="StaffSearch.aspx.cs">
+      <DependentUpon>StaffSearch.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="StaffSearch.aspx.designer.cs">
+      <DependentUpon>StaffSearch.aspx</DependentUpon>
+    </Compile>
     <Compile Include="WebForm1.aspx.cs">
       <DependentUpon>WebForm1.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
