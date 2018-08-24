@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="267ded1bd9c0440591329591aad77b16" Name="Diagram1">
+        <EntityTypeShape EntityType="DB_9AB8B7_D18DDA6043Model.ANSWER" Width="1.875" PointX="0.75" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_9AB8B7_D18DDA6043Model.QUESTION" Width="2" PointX="3.875" PointY="2.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_9AB8B7_D18DDA6043Model.QUESTIONS_OPTIONS" Width="1.875" PointX="4.5" PointY="5.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_9AB8B7_D18DDA6043Model.SESSION" Width="1.5" PointX="0.875" PointY="2.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_9AB8B7_D18DDA6043Model.STAFF" Width="1.5" PointX="6.75" PointY="2.25" IsExpanded="true" />
+        <AssociationConnector Association="DB_9AB8B7_D18DDA6043Model.FK_dbo_ANSWERS_dbo_QUESTIONS_OPTIONS_QUESTION_OPTION_ID" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_9AB8B7_D18DDA6043Model.FK_dbo_ANSWERS_dbo_QUESTIONS_QUESTION_ID" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_9AB8B7_D18DDA6043Model.FK_dbo_ANSWERS_dbo_SESSIONS_SESSION_ID" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_9AB8B7_D18DDA6043Model.FK_dbo_QUESTIONS_dbo_QUESTIONS_NEXT_QUESTION_ID" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_9AB8B7_D18DDA6043Model.FK_dbo_QUESTIONS_OPTIONS_dbo_QUESTIONS_NEXT_QUESTION_ID" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_9AB8B7_D18DDA6043Model.FK_dbo_QUESTIONS_OPTIONS_dbo_QUESTIONS_QUESTION_ID" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

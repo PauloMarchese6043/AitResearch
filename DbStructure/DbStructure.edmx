@@ -1,0 +1,421 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="DB_9AB8B7_D18DDA6043Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="ANSWERS">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TEXT" Type="nvarchar(max)" />
+          <Property Name="SESSION_ID" Type="int" Nullable="false" />
+          <Property Name="QUESTION_ID" Type="int" Nullable="false" />
+          <Property Name="QUESTION_OPTION_ID" Type="int" />
+        </EntityType>
+        <EntityType Name="QUESTIONS">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TEXT" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="TYPE" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="NEXT_QUESTION_ID" Type="int" />
+        </EntityType>
+        <EntityType Name="QUESTIONS_OPTIONS">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TEXT" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="QUESTION_ID" Type="int" Nullable="false" />
+          <Property Name="NEXT_QUESTION_ID" Type="int" />
+        </EntityType>
+        <EntityType Name="SESSIONS">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DATE" Type="datetime" Nullable="false" />
+          <Property Name="IP_ADDRESS" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="GIVEN_NAME" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="LAST_NAME" Type="nvarchar(max)" />
+          <Property Name="BIRTHDAY" Type="datetime" Nullable="false" />
+          <Property Name="PHONE" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="STAFF">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="USERNAME" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="PASSWORD" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_dbo_ANSWERS_dbo_QUESTIONS_OPTIONS_QUESTION_OPTION_ID">
+          <End Role="QUESTIONS_OPTIONS" Type="Self.QUESTIONS_OPTIONS" Multiplicity="0..1" />
+          <End Role="ANSWERS" Type="Self.ANSWERS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="QUESTIONS_OPTIONS">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ANSWERS">
+              <PropertyRef Name="QUESTION_OPTION_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_ANSWERS_dbo_QUESTIONS_QUESTION_ID">
+          <End Role="QUESTIONS" Type="Self.QUESTIONS" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ANSWERS" Type="Self.ANSWERS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="QUESTIONS">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ANSWERS">
+              <PropertyRef Name="QUESTION_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_ANSWERS_dbo_SESSIONS_SESSION_ID">
+          <End Role="SESSIONS" Type="Self.SESSIONS" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ANSWERS" Type="Self.ANSWERS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SESSIONS">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ANSWERS">
+              <PropertyRef Name="SESSION_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_QUESTIONS_dbo_QUESTIONS_NEXT_QUESTION_ID">
+          <End Role="QUESTIONS" Type="Self.QUESTIONS" Multiplicity="0..1" />
+          <End Role="QUESTIONS1" Type="Self.QUESTIONS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="QUESTIONS">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="QUESTIONS1">
+              <PropertyRef Name="NEXT_QUESTION_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_QUESTIONS_OPTIONS_dbo_QUESTIONS_NEXT_QUESTION_ID">
+          <End Role="QUESTIONS" Type="Self.QUESTIONS" Multiplicity="0..1" />
+          <End Role="QUESTIONS_OPTIONS" Type="Self.QUESTIONS_OPTIONS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="QUESTIONS">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="QUESTIONS_OPTIONS">
+              <PropertyRef Name="NEXT_QUESTION_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_QUESTIONS_OPTIONS_dbo_QUESTIONS_QUESTION_ID">
+          <End Role="QUESTIONS" Type="Self.QUESTIONS" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="QUESTIONS_OPTIONS" Type="Self.QUESTIONS_OPTIONS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="QUESTIONS">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="QUESTIONS_OPTIONS">
+              <PropertyRef Name="QUESTION_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DB_9AB8B7_D18DDA6043ModelStoreContainer">
+          <EntitySet Name="ANSWERS" EntityType="Self.ANSWERS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="QUESTIONS" EntityType="Self.QUESTIONS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="QUESTIONS_OPTIONS" EntityType="Self.QUESTIONS_OPTIONS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SESSIONS" EntityType="Self.SESSIONS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="STAFF" EntityType="Self.STAFF" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_dbo_ANSWERS_dbo_QUESTIONS_OPTIONS_QUESTION_OPTION_ID" Association="Self.FK_dbo_ANSWERS_dbo_QUESTIONS_OPTIONS_QUESTION_OPTION_ID">
+            <End Role="QUESTIONS_OPTIONS" EntitySet="QUESTIONS_OPTIONS" />
+            <End Role="ANSWERS" EntitySet="ANSWERS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_ANSWERS_dbo_QUESTIONS_QUESTION_ID" Association="Self.FK_dbo_ANSWERS_dbo_QUESTIONS_QUESTION_ID">
+            <End Role="QUESTIONS" EntitySet="QUESTIONS" />
+            <End Role="ANSWERS" EntitySet="ANSWERS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_ANSWERS_dbo_SESSIONS_SESSION_ID" Association="Self.FK_dbo_ANSWERS_dbo_SESSIONS_SESSION_ID">
+            <End Role="SESSIONS" EntitySet="SESSIONS" />
+            <End Role="ANSWERS" EntitySet="ANSWERS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_QUESTIONS_dbo_QUESTIONS_NEXT_QUESTION_ID" Association="Self.FK_dbo_QUESTIONS_dbo_QUESTIONS_NEXT_QUESTION_ID">
+            <End Role="QUESTIONS" EntitySet="QUESTIONS" />
+            <End Role="QUESTIONS1" EntitySet="QUESTIONS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_QUESTIONS_OPTIONS_dbo_QUESTIONS_NEXT_QUESTION_ID" Association="Self.FK_dbo_QUESTIONS_OPTIONS_dbo_QUESTIONS_NEXT_QUESTION_ID">
+            <End Role="QUESTIONS" EntitySet="QUESTIONS" />
+            <End Role="QUESTIONS_OPTIONS" EntitySet="QUESTIONS_OPTIONS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_QUESTIONS_OPTIONS_dbo_QUESTIONS_QUESTION_ID" Association="Self.FK_dbo_QUESTIONS_OPTIONS_dbo_QUESTIONS_QUESTION_ID">
+            <End Role="QUESTIONS" EntitySet="QUESTIONS" />
+            <End Role="QUESTIONS_OPTIONS" EntitySet="QUESTIONS_OPTIONS" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DB_9AB8B7_D18DDA6043Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="ANSWER">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TEXT" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SESSION_ID" Type="Int32" Nullable="false" />
+          <Property Name="QUESTION_ID" Type="Int32" Nullable="false" />
+          <Property Name="QUESTION_OPTION_ID" Type="Int32" />
+          <NavigationProperty Name="QUESTIONS_OPTIONS" Relationship="Self.FK_dbo_ANSWERS_dbo_QUESTIONS_OPTIONS_QUESTION_OPTION_ID" FromRole="ANSWERS" ToRole="QUESTIONS_OPTIONS" />
+          <NavigationProperty Name="QUESTION" Relationship="Self.FK_dbo_ANSWERS_dbo_QUESTIONS_QUESTION_ID" FromRole="ANSWERS" ToRole="QUESTIONS" />
+          <NavigationProperty Name="SESSION" Relationship="Self.FK_dbo_ANSWERS_dbo_SESSIONS_SESSION_ID" FromRole="ANSWERS" ToRole="SESSIONS" />
+        </EntityType>
+        <EntityType Name="QUESTION">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TEXT" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="TYPE" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="NEXT_QUESTION_ID" Type="Int32" />
+          <NavigationProperty Name="ANSWERS" Relationship="Self.FK_dbo_ANSWERS_dbo_QUESTIONS_QUESTION_ID" FromRole="QUESTIONS" ToRole="ANSWERS" />
+          <NavigationProperty Name="QUESTIONS1" Relationship="Self.FK_dbo_QUESTIONS_dbo_QUESTIONS_NEXT_QUESTION_ID" FromRole="QUESTIONS" ToRole="QUESTIONS1" />
+          <NavigationProperty Name="QUESTION1" Relationship="Self.FK_dbo_QUESTIONS_dbo_QUESTIONS_NEXT_QUESTION_ID" FromRole="QUESTIONS1" ToRole="QUESTIONS" />
+          <NavigationProperty Name="QUESTIONS_OPTIONS" Relationship="Self.FK_dbo_QUESTIONS_OPTIONS_dbo_QUESTIONS_NEXT_QUESTION_ID" FromRole="QUESTIONS" ToRole="QUESTIONS_OPTIONS" />
+          <NavigationProperty Name="QUESTIONS_OPTIONS1" Relationship="Self.FK_dbo_QUESTIONS_OPTIONS_dbo_QUESTIONS_QUESTION_ID" FromRole="QUESTIONS" ToRole="QUESTIONS_OPTIONS" />
+        </EntityType>
+        <EntityType Name="QUESTIONS_OPTIONS">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TEXT" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="QUESTION_ID" Type="Int32" Nullable="false" />
+          <Property Name="NEXT_QUESTION_ID" Type="Int32" />
+          <NavigationProperty Name="ANSWERS" Relationship="Self.FK_dbo_ANSWERS_dbo_QUESTIONS_OPTIONS_QUESTION_OPTION_ID" FromRole="QUESTIONS_OPTIONS" ToRole="ANSWERS" />
+          <NavigationProperty Name="QUESTION" Relationship="Self.FK_dbo_QUESTIONS_OPTIONS_dbo_QUESTIONS_NEXT_QUESTION_ID" FromRole="QUESTIONS_OPTIONS" ToRole="QUESTIONS" />
+          <NavigationProperty Name="QUESTION1" Relationship="Self.FK_dbo_QUESTIONS_OPTIONS_dbo_QUESTIONS_QUESTION_ID" FromRole="QUESTIONS_OPTIONS" ToRole="QUESTIONS" />
+        </EntityType>
+        <EntityType Name="SESSION">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DATE" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IP_ADDRESS" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="GIVEN_NAME" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LAST_NAME" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="BIRTHDAY" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="PHONE" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ANSWERS" Relationship="Self.FK_dbo_ANSWERS_dbo_SESSIONS_SESSION_ID" FromRole="SESSIONS" ToRole="ANSWERS" />
+        </EntityType>
+        <EntityType Name="STAFF">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="USERNAME" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PASSWORD" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_dbo_ANSWERS_dbo_QUESTIONS_OPTIONS_QUESTION_OPTION_ID">
+          <End Role="QUESTIONS_OPTIONS" Type="Self.QUESTIONS_OPTIONS" Multiplicity="0..1" />
+          <End Role="ANSWERS" Type="Self.ANSWER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="QUESTIONS_OPTIONS">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ANSWERS">
+              <PropertyRef Name="QUESTION_OPTION_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_ANSWERS_dbo_QUESTIONS_QUESTION_ID">
+          <End Role="QUESTIONS" Type="Self.QUESTION" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ANSWERS" Type="Self.ANSWER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="QUESTIONS">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ANSWERS">
+              <PropertyRef Name="QUESTION_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_ANSWERS_dbo_SESSIONS_SESSION_ID">
+          <End Role="SESSIONS" Type="Self.SESSION" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ANSWERS" Type="Self.ANSWER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SESSIONS">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ANSWERS">
+              <PropertyRef Name="SESSION_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_QUESTIONS_dbo_QUESTIONS_NEXT_QUESTION_ID">
+          <End Role="QUESTIONS" Type="Self.QUESTION" Multiplicity="0..1" />
+          <End Role="QUESTIONS1" Type="Self.QUESTION" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="QUESTIONS">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="QUESTIONS1">
+              <PropertyRef Name="NEXT_QUESTION_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_QUESTIONS_OPTIONS_dbo_QUESTIONS_NEXT_QUESTION_ID">
+          <End Role="QUESTIONS" Type="Self.QUESTION" Multiplicity="0..1" />
+          <End Role="QUESTIONS_OPTIONS" Type="Self.QUESTIONS_OPTIONS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="QUESTIONS">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="QUESTIONS_OPTIONS">
+              <PropertyRef Name="NEXT_QUESTION_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_QUESTIONS_OPTIONS_dbo_QUESTIONS_QUESTION_ID">
+          <End Role="QUESTIONS" Type="Self.QUESTION" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="QUESTIONS_OPTIONS" Type="Self.QUESTIONS_OPTIONS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="QUESTIONS">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="QUESTIONS_OPTIONS">
+              <PropertyRef Name="QUESTION_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DB_9AB8B7_D18DDA6043Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ANSWERS" EntityType="Self.ANSWER" />
+          <EntitySet Name="QUESTIONS" EntityType="Self.QUESTION" />
+          <EntitySet Name="QUESTIONS_OPTIONS" EntityType="Self.QUESTIONS_OPTIONS" />
+          <EntitySet Name="SESSIONS" EntityType="Self.SESSION" />
+          <EntitySet Name="STAFFs" EntityType="Self.STAFF" />
+          <AssociationSet Name="FK_dbo_ANSWERS_dbo_QUESTIONS_OPTIONS_QUESTION_OPTION_ID" Association="Self.FK_dbo_ANSWERS_dbo_QUESTIONS_OPTIONS_QUESTION_OPTION_ID">
+            <End Role="QUESTIONS_OPTIONS" EntitySet="QUESTIONS_OPTIONS" />
+            <End Role="ANSWERS" EntitySet="ANSWERS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_ANSWERS_dbo_QUESTIONS_QUESTION_ID" Association="Self.FK_dbo_ANSWERS_dbo_QUESTIONS_QUESTION_ID">
+            <End Role="QUESTIONS" EntitySet="QUESTIONS" />
+            <End Role="ANSWERS" EntitySet="ANSWERS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_ANSWERS_dbo_SESSIONS_SESSION_ID" Association="Self.FK_dbo_ANSWERS_dbo_SESSIONS_SESSION_ID">
+            <End Role="SESSIONS" EntitySet="SESSIONS" />
+            <End Role="ANSWERS" EntitySet="ANSWERS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_QUESTIONS_dbo_QUESTIONS_NEXT_QUESTION_ID" Association="Self.FK_dbo_QUESTIONS_dbo_QUESTIONS_NEXT_QUESTION_ID">
+            <End Role="QUESTIONS" EntitySet="QUESTIONS" />
+            <End Role="QUESTIONS1" EntitySet="QUESTIONS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_QUESTIONS_OPTIONS_dbo_QUESTIONS_NEXT_QUESTION_ID" Association="Self.FK_dbo_QUESTIONS_OPTIONS_dbo_QUESTIONS_NEXT_QUESTION_ID">
+            <End Role="QUESTIONS" EntitySet="QUESTIONS" />
+            <End Role="QUESTIONS_OPTIONS" EntitySet="QUESTIONS_OPTIONS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_QUESTIONS_OPTIONS_dbo_QUESTIONS_QUESTION_ID" Association="Self.FK_dbo_QUESTIONS_OPTIONS_dbo_QUESTIONS_QUESTION_ID">
+            <End Role="QUESTIONS" EntitySet="QUESTIONS" />
+            <End Role="QUESTIONS_OPTIONS" EntitySet="QUESTIONS_OPTIONS" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DB_9AB8B7_D18DDA6043ModelStoreContainer" CdmEntityContainer="DB_9AB8B7_D18DDA6043Entities">
+          <EntitySetMapping Name="ANSWERS">
+            <EntityTypeMapping TypeName="DB_9AB8B7_D18DDA6043Model.ANSWER">
+              <MappingFragment StoreEntitySet="ANSWERS">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="TEXT" ColumnName="TEXT" />
+                <ScalarProperty Name="SESSION_ID" ColumnName="SESSION_ID" />
+                <ScalarProperty Name="QUESTION_ID" ColumnName="QUESTION_ID" />
+                <ScalarProperty Name="QUESTION_OPTION_ID" ColumnName="QUESTION_OPTION_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="QUESTIONS">
+            <EntityTypeMapping TypeName="DB_9AB8B7_D18DDA6043Model.QUESTION">
+              <MappingFragment StoreEntitySet="QUESTIONS">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="TEXT" ColumnName="TEXT" />
+                <ScalarProperty Name="TYPE" ColumnName="TYPE" />
+                <ScalarProperty Name="NEXT_QUESTION_ID" ColumnName="NEXT_QUESTION_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="QUESTIONS_OPTIONS">
+            <EntityTypeMapping TypeName="DB_9AB8B7_D18DDA6043Model.QUESTIONS_OPTIONS">
+              <MappingFragment StoreEntitySet="QUESTIONS_OPTIONS">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="TEXT" ColumnName="TEXT" />
+                <ScalarProperty Name="QUESTION_ID" ColumnName="QUESTION_ID" />
+                <ScalarProperty Name="NEXT_QUESTION_ID" ColumnName="NEXT_QUESTION_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SESSIONS">
+            <EntityTypeMapping TypeName="DB_9AB8B7_D18DDA6043Model.SESSION">
+              <MappingFragment StoreEntitySet="SESSIONS">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="DATE" ColumnName="DATE" />
+                <ScalarProperty Name="IP_ADDRESS" ColumnName="IP_ADDRESS" />
+                <ScalarProperty Name="GIVEN_NAME" ColumnName="GIVEN_NAME" />
+                <ScalarProperty Name="LAST_NAME" ColumnName="LAST_NAME" />
+                <ScalarProperty Name="BIRTHDAY" ColumnName="BIRTHDAY" />
+                <ScalarProperty Name="PHONE" ColumnName="PHONE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="STAFFs">
+            <EntityTypeMapping TypeName="DB_9AB8B7_D18DDA6043Model.STAFF">
+              <MappingFragment StoreEntitySet="STAFF">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="USERNAME" ColumnName="USERNAME" />
+                <ScalarProperty Name="PASSWORD" ColumnName="PASSWORD" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
